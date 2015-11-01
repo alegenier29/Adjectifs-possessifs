@@ -1,0 +1,148 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;               MODÈLE D’APPRENTISSAGE D'UNE LANGUE ÉTRANGÈRE               ;
+;                   (ADJECTIFS POSSESSIFS EN FRANÇAIS )                     ;             
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;   Auteurs:                        Date:                                   ;
+;       Galeano Alejandro           25 octubre 2015                         ;
+;       Yovanna Bojaca                                                      ;
+;		    Benoit Jeunehomme                                                   ;
+;		    Elodie Abgrall                                                      ;
+;                                                                           ;
+;   Université de Sherbrooke                                                ;
+;   dans le cadre du cours IFT603                                           ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+(clear-all)
+
+(define-model adjetipos
+
+(sgp :esc t :lf .05 :trace-detail high)
+
+
+(chunk-type mot_espagnol mot genre)
+(chunk-type mot_français mot genre)
+(chunk-type traduction espagnol français genre)
+(chunk-type possesseur espagnol français)
+(chunk-type adjetif-français personne possede nombrepossede adjetif)
+(chunk-type sujet-accorde sujet accorde) ; seulement en nombre
+(chunk-type variation pluriel possesseur commence_voyel)
+(chunk-type choisir-adjetif personne mot count) ; count erreur number
+
+(add-dm
+
+ (mot_es_chemise ISA mot_espagnol mot "camisa"  genre "feminin")
+ (mot_es_manteau ISA mot_espagnol mot "abrigo"  genre "masculin")
+ (mot_es_voiture ISA mot_espagnol mot "coche"  genre "masculin")
+
+ (mot_fr_chemise ISA mot_français mot "chemise"  genre "feminin")
+ (mot_fr_manteau ISA mot_français mot "manteau"  genre "masculin")
+ (mot_fr_voiture ISA mot_français mot "voiture"  genre "feminin") 
+ 
+ (chemise ISA traduction espagnol "camisa" français "chemise")
+ (manteau ISA traduction espagnol "abrigo" français "manteau")
+ (voiture ISA traduction espagnol "coche" français "voiture")
+
+ (je ISA possesseur espagnol "yo" français "je")
+ (tu ISA possesseur espagnol "tu" français "tu")
+ (il ISA possesseur espagnol "el" français "il")
+ (elle ISA possesseur espagnol "ella" français "elle")
+ (nous ISA possesseur espagnol "nosotros" français "nous")
+ (vous ISA possesseur espagnol "usted" français "vous")
+ (ils ISA possesseur espagnol "ellos" français "ils")
+ (elles ISA possesseur espagnol "ellas" français "elles")
+ 
+ (achemise ISA sujet-accorde sujet "chemise" accorde "s")
+ (amanteau ISA sujet-accorde sujet "manteau" accorde "x")
+ (avoiture ISA sujet-accorde sujet "voiture" accorde "s")  
+ 
+(mon ISA adjetif-français personne "je" possede "masculin" nombrepossede "singulier" adjetif "mon")
+(ma ISA adjetif-français personne "je" possede "feminin" nombrepossede "singulier" adjetif "ma")
+(mes ISA adjetif-français personne "je" possede "masculin" nombrepossede "pluriel" adjetif "mes")
+(mes1 ISA adjetif-français personne "je" possede "feminin" nombrepossede "pluriel" adjetif "mes")
+
+(ton ISA adjetif-français personne "tu" possede "masculin" nombrepossede "singulier" adjetif "ton")
+(ta ISA adjetif-français personne "tu" possede "feminin" nombrepossede "singulier" adjetif "ta")
+(tes ISA adjetif-français personne "tu" possede "masculin" nombrepossede "pluriel" adjetif "tes")
+(tes1 ISA adjetif-français personne "tu" possede "feminin" nombrepossede "pluriel" adjetif "tes")
+
+(ilson ISA adjetif-français personne "il" possede "masculin" nombrepossede "singulier" adjetif "son")
+(ilsa ISA adjetif-français personne "il" possede "feminin" nombrepossede "singulier" adjetif "sa")
+(ilses ISA adjetif-français personne "il" possede "masculin" nombrepossede "pluriel" adjetif "ses")
+(ilses1 ISA adjetif-français personne "il" possede "feminin" nombrepossede "pluriel" adjetif "ses")
+
+(elleson ISA adjetif-français personne "elle" possede "masculin" nombrepossede "singulier" adjetif "son")
+(ellesa ISA adjetif-français personne "elle" possede "feminin" nombrepossede "singulier" adjetif "sa")
+(elleses ISA adjetif-français personne "elle" possede "masculin" nombrepossede "pluriel" adjetif "ses")
+(elleses1 ISA adjetif-français personne "elle" possede "feminin" nombrepossede "pluriel" adjetif "ses")
+
+(notre ISA adjetif-français personne "nous" possede "masculin" nombrepossede "singulier" adjetif "notre")
+(notre ISA adjetif-français personne "nous" possede "feminin" nombrepossede "singulier" adjetif "notre")
+(nos ISA adjetif-français personne "nous" possede "masculin" nombrepossede "pluriel" adjetif "nos")
+(nos1 ISA adjetif-français personne "nous" possede "feminin" nombrepossede "pluriel" adjetif "nos")
+
+(votre ISA adjetif-français personne "vous" possede "masculin" nombrepossede "singulier" adjetif "votre")
+(votre1 ISA adjetif-français personne "vous" possede "feminin" nombrepossede "singulier" adjetif "votre")
+(vos ISA adjetif-français personne "vous" possede "masculin" nombrepossede "pluriel" adjetif "vos")
+(vos1 ISA adjetif-français personne "vous" possede "feminin" nombrepossede "pluriel" adjetif "vos")
+
+(ilsleur ISA adjetif-français personne "ils" possede "masculin" nombrepossede "singulier" adjetif "leur")
+(ilsleur1 ISA adjetif-français personne "ils" possede "feminin" nombrepossede "singulier" adjetif "leur")
+(ilsleurs ISA adjetif-français personne "ils" possede "masculin" nombrepossede "pluriel" adjetif "leurs")
+(ilsleurs1 ISA adjetif-français personne "ils" possede "feminin" nombrepossede "pluriel" adjetif "leurs")
+
+ (ellesleur ISA adjetif-français personne "elles" possede "masculin" nombrepossede "singulier" adjetif "leur")
+(ellesleur1 ISA adjetif-français personne "elles" possede "feminin" nombrepossede "singulier" adjetif "leur")
+(ellesleurs ISA adjetif-français personne "elles" possede "masculin" nombrepossede "pluriel" adjetif "leurs")
+(ellesleurs1 ISA adjetif-français personne "elles" possede "feminin" nombrepossede "pluriel" adjetif "leurs")
+
+
+ (first-goal ISA choisir-adjetif personne "je" mot "chemise" )
+ )
+
+(p start
+   =goal>
+      ISA         choisir-adjetif
+      personne    =person
+	  mot         =possede
+      count       nil
+ ==>
+   =goal>
+      count       =num1
+   +retrieval>
+      ISA         count-order
+      first       =num1
+)
+
+(P select
+   =goal>
+      ISA         count-from
+      count       =num1
+    - end         =num1
+   =retrieval>
+      ISA         count-order
+      first       =num1
+      second      =num2
+ ==>
+   =goal>
+      count       =num2
+   +retrieval>
+      ISA         count-order
+      first       =num2
+   !output!       (=num1)
+)
+
+(P stop
+   =goal>
+      ISA         count-from
+      count       =num
+      end         =num
+ ==>
+   -goal>
+   !output!       (=num)
+
+)
+
+(goal-focus first-goal)
+)
