@@ -21,42 +21,25 @@
 (sgp :esc t :lf .05 :trace-detail high)
 
 
-(chunk-type mot_espagnol mot genre)
-(chunk-type mot_français mot genre)
+(chunk-type mot_espagnol mot genre nombre)
+(chunk-type mot_français mot genre nombre)
 (chunk-type traduction espagnol français genre)
-(chunk-type possesseur espagnol français)
-(chunk-type adjetif-français personne possede nombrepossede adjetif)
-(chunk-type sujet-accorde sujet accorde) ; seulement en nombre
-(chunk-type variation pluriel possesseur commence_voyel)
-(chunk-type choisir-adjetif personne mot count) ; count erreur number
+(chunk-type possesif-français personne possede nombrepossede adjetif)
 
 (add-dm
 
- (mot_es_chemise ISA mot_espagnol mot "camisa"  genre "feminin")
- (mot_es_manteau ISA mot_espagnol mot "abrigo"  genre "masculin")
- (mot_es_voiture ISA mot_espagnol mot "coche"  genre "masculin")
+ (mot_es_chemise ISA mot_espagnol mot "camisa"  genre "feminin" nombre "singulier")
+ (mot_es_manteau ISA mot_espagnol mot "abrigo"  genre "masculin" nombre "singulier")
+ (mot_es_voiture ISA mot_espagnol mot "coche"  genre "masculin" nombre "singulier")
 
- (mot_fr_chemise ISA mot_français mot "chemise"  genre "feminin")
- (mot_fr_manteau ISA mot_français mot "manteau"  genre "masculin")
- (mot_fr_voiture ISA mot_français mot "voiture"  genre "feminin") 
+ (mot_fr_chemise ISA mot_français mot "chemise"  genre "feminin" nombre "singulier")
+ (mot_fr_manteau ISA mot_français mot "manteau"  genre "masculin" nombre "singulier")
+ (mot_fr_voiture ISA mot_français mot "voiture"  genre "feminin" nombre "singulier") 
  
  (chemise ISA traduction espagnol "camisa" français "chemise")
  (manteau ISA traduction espagnol "abrigo" français "manteau")
  (voiture ISA traduction espagnol "coche" français "voiture")
 
- (je ISA possesseur espagnol "yo" français "je")
- (tu ISA possesseur espagnol "tu" français "tu")
- (il ISA possesseur espagnol "el" français "il")
- (elle ISA possesseur espagnol "ella" français "elle")
- (nous ISA possesseur espagnol "nosotros" français "nous")
- (vous ISA possesseur espagnol "usted" français "vous")
- (ils ISA possesseur espagnol "ellos" français "ils")
- (elles ISA possesseur espagnol "ellas" français "elles")
- 
- (achemise ISA sujet-accorde sujet "chemise" accorde "s")
- (amanteau ISA sujet-accorde sujet "manteau" accorde "x")
- (avoiture ISA sujet-accorde sujet "voiture" accorde "s")  
- 
 (mon ISA adjetif-français personne "je" possede "masculin" nombrepossede "singulier" adjetif "mon")
 (ma ISA adjetif-français personne "je" possede "feminin" nombrepossede "singulier" adjetif "ma")
 (mes ISA adjetif-français personne "je" possede "masculin" nombrepossede "pluriel" adjetif "mes")
